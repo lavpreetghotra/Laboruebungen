@@ -17,14 +17,14 @@ window.onload = function() {
     ctx.fillStyle = 'red';
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 2;
-    ctx.fillRect(130, 190, 30, 50);
-    ctx.strokeRect(130, 190, 30, 50);
+    ctx.fillRect(130, 200, 30, 50);
+    ctx.strokeRect(130, 200, 30, 50);
 
     // Draw small rectangle inside door
     ctx.fillStyle = 'white';
     ctx.beginPath();
-    ctx.fillRect(142, 205, 10, 15);
-    ctx.strokeRect(142, 205, 10, 15);
+    ctx.fillRect(140, 215, 10, 15);
+    ctx.strokeRect(140, 215, 10, 15);
 
     // Draw window
     ctx.strokeStyle = 'black';

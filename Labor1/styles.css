@@ -2,37 +2,58 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: lightblue;
     margin: 0;
+    display: flex;
+    flex-direction: column; /* Sicherstellen, dass Elemente untereinander angeordnet sind */
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    
+}
+
+.titolo {
+    width: 100%;
+    margin-bottom: 20px; /* Abstand zum Hauptinhalt */
+    font-size: 25px
 }
 
 .main {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-evenly; /* Die Canvas- und Text-Sektionen bleiben nebeneinander */
     align-items: flex-start;
+    width: 100%; /* Passt sich an die Bildschirmbreite an */
+    max-width: 1200px; /* Begrenzung der maximalen Breite */
+    flex-wrap: nowrap; /* Verhindert, dass die Divs umgebrochen werden */
 }
 
 .canvas-section {
-    width: 55%;
+    flex: 1 1 500px; /* Der Canvas-Bereich bleibt flexibel */
     text-align: center;
+    margin: 10px;
+    margin-right: 100px;   
+    
 }
 
 .text {
-    display: block;
-    width: 40%;
-    margin-left: 20px;
+    flex: 1 1 300px; /* Der Text-Bereich bleibt flexibel */
+    margin: 10px;
+    font-size: 25px;
+    margin-left: 200px;
+    
 }
 
 h1 {
     color: #ff0066;
-    font-size: 28px;
+    font-size: 30px;
 }
 
 h2 {
     color: #ff0066;
-    font-size: 22px;
+    font-size: 29px;
 }
 
 canvas {
     border: 2px solid black;
     background-color: white;
-    margin-top: 10px;
+    border-width: 5px;
+    max-width: 100%; /* Canvas passt sich der Breite an */
 }
