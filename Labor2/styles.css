@@ -1,4 +1,16 @@
 /* styles.css */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: lightgrey;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Sicherstellen, dass Elemente untereinander angeordnet sind */
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    
+}
+
 h1 {
     color: blue;
     text-align: center;
@@ -20,13 +32,23 @@ h1 {
 #image-canvas {
     display: block;
     margin-top: 20px;
+    border: 10px solid black; /* Dickere schwarze Umrandung */
 }
 
 #filters {
     margin-top: 20px;
     text-align: center;
+    background-color: #333;
+    color: white;
+    border: 2px solid black; /* Schmalere schwarze Umrandung */
+    display: inline-block; /* Passt die Breite an den Inhalt an */
+    padding: 10px; /* Innenabstand für besseren Look */
 }
 
 #filters label {
     margin-right: 10px;
+}
+
+#filters input[type="radio"] {
+    color: white;
 }
