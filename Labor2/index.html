@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Bild hochladen</h1>
+    <input type="file" id="choose-file-button" accept="image/jpeg, image/png, image/gif">
+    <canvas id="image-canvas"></canvas>
+    <div id="filters">
+        <label><input type="radio" name="filter" value="original" checked> Original</label>
+        <label><input type="radio" name="filter" value="grayscale"> Grayscale</label>
+        <label><input type="radio" name="filter" value="inverted"> Inverted</label>
+        <label><input type="radio" name="filter" value="sepia"> Sepia</label>
+    </div>
+
+    <script>
+        let originalImageData;
+
+        document.getElementById('choose-file-button').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.getElementById('image-canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        originalImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    }
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('filters').addEventListener('change', function(event) {
+            const filter = event.target.value;
+            applyFilter(filter);
+        });
+
+        function applyFilter(filter) {
+            const canvas = document.getElementById('image-canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.putImageData(originalImageData, 0, 0);
+            let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let data = imageData.data;
+
+            switch (filter) {
+                case 'grayscale':
+                    for (let i = 0; i < data.length; i += 4) {
+                        let avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                        data[i] = data[i + 1] = data[i + 2] = avg;
+                    }
+                    break;
+                case 'inverted':
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = 255 - data[i];
+                        data[i + 1] = 255 - data[i + 1];
+                        data[i + 2] = 255 - data[i + 2];
+                    }
+                    break;
+                case 'sepia':
+                    for (let i = 0; i < data.length; i += 4) {
+                        let r = data[i];
+                        let g = data[i + 1];
+                        let b = data[i + 2];
+                        data[i] = r * 0.393 + g * 0.769 + b * 0.189;
+                        data[i + 1] = r * 0.349 + g * 0.686 + b * 0.168;
+                        data[i + 2] = r * 0.272 + g * 0.534 + b * 0.131;
+                    }
+                    break;
+                default:
+                    return;
+            }
+            ctx.putImageData(imageData, 0, 0);
+        }
+    </script>
+</body>
+</html>
