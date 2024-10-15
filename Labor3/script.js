@@ -12,6 +12,7 @@ const MOON_EARTH_DISTANCE_PROPORTION_SCREEN = 0.1;
 
 let animationFrame;
 let running = false;
+const numStars = 1000;
 
 const sun = {
     x: canvas.width / 2,
@@ -41,6 +42,20 @@ function drawCircle(x, y, radius, color) {
     ctx.fill();
 }
 
+const stars = [];
+for (let i = 0; i < numStars; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height
+    });
+}
+function drawStars() {
+    ctx.fillStyle = "white";
+    stars.forEach(star => {
+        ctx.fillRect(star.x, star.y, 2, 2);
+    });
+}
+
 function drawEarth(x, y, radius, sunX, sunY) {
     const angleToSun = Math.atan2(sunY - y, sunX - x);
     const gradient = ctx.createLinearGradient(
@@ -59,14 +74,28 @@ function drawEarth(x, y, radius, sunX, sunY) {
 }
 
 function isMoonInShadow(earthX, earthY, moonX, moonY, sunX, sunY) {
-    const earthToSunAngle = Math.atan2(sunY - earthY, sunX - earthX);
-    const earthToMoonAngle = Math.atan2(moonY - earthY, moonX - earthX);
+    // Berechne Vektoren
+    const earthToSunVec = { x: sunX - earthX, y: sunY - earthY };
+    const earthToMoonVec = { x: moonX - earthX, y: moonY - earthY };
+    
+    // Normalisiere die Vektoren (Richtungsvektoren)
+    const earthToSunAngle = Math.atan2(earthToSunVec.y, earthToSunVec.x);
+    const earthToMoonAngle = Math.atan2(earthToMoonVec.y, earthToMoonVec.x);
+    
+    // Berechne den Winkel zwischen Sonne-Erde und Erde-Mond
     const angleDifference = Math.abs(earthToSunAngle - earthToMoonAngle);
-    return angleDifference < Math.PI / 6; // Beispielwert für den Schattenbereich
+    
+    // Wenn der Winkel nahe bei Pi liegt, ist der Mond hinter der Erde und im Schatten
+    const isInShadow = angleDifference > Math.PI / 2 && angleDifference < 3 * Math.PI / 2;
+    
+    return isInShadow;
 }
 
 function drawSystem() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Sterne zeichnen
+    drawStars();
 
     // Sonne zeichnen
     drawCircle(sun.x, sun.y, sun.radius, sun.color);
@@ -79,7 +108,7 @@ function drawSystem() {
     // Mond umkreist die Erde
     const moonX = earthX + moonOrbit.radius * Math.cos(moonOrbit.angle);
     const moonY = earthY + moonOrbit.radius * Math.sin(moonOrbit.angle);
-    const moonColor = isMoonInShadow(earthX, earthY, moonX, moonY, sun.x, sun.y) ? 'black' : 'gray';
+    const moonColor = isMoonInShadow(earthX, earthY, moonX, moonY, sun.x, sun.y) ? 'gray' : 'white';
     drawCircle(moonX, moonY, MOON_RADIUS_PROPORTION * canvas.width, moonColor);
 
     // Update der Winkel für die nächste Zeichnung
