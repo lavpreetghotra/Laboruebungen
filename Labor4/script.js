@@ -79,4 +79,3 @@ window.onload = function() {
     // Achsen zeichnen
     drawAxes(ctx, canvas.width, canvas.height);
 };
-    
