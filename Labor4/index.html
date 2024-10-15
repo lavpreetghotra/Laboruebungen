@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bresenham Algorithmus - Linien Zeichnen</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Zeichnen von Linien mit dem Bresenham-Algorithmus</h1>
+    
+    <canvas id="bresenhamCanvas" width="400" height="400"></canvas>
+    
+    <h3>Startpunkt</h3>
+    <label for="x1">x1-Wert:</label>
+    <input type="number" id="x1" value="0">
+    <label for="y1">y1-Wert:</label>
+    <input type="number" id="y1" value="0">
+    
+    <h3>Endpunkt</h3>
+    <label for="x2">x2-Wert:</label>
+    <input type="number" id="x2" value="0">
+    <label for="y2">y2-Wert:</label>
+    <input type="number" id="y2" value="0">
+    
+    <button id="drawLineButton">Draw Line</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
