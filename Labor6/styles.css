@@ -1,19 +1,14 @@
-/* Reset margin and padding for all elements */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Ensure the body takes the full viewport height and centers content */
 body {
-    display: flex;
-    flex-direction: column;    /* Stack elements vertically */
-    justify-content: center;   /* Center vertically */
-    align-items: center;       /* Center horizontally */
-    height: 100vh;             /* Full viewport height */
+    text-align: center;
+    background-color: #000;
+    color: #fff;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
 }
 
 /* Ensure the heading is spaced correctly */
@@ -23,8 +18,9 @@ h1 {
 
 /* Canvas styling with a visible border */
 canvas {
-    border: 2px solid black;   /* Ensure the canvas has a border */
-    margin-bottom: 20px;       /* Space between canvas and controls */
+    background-color: #000;
+    border: 2px solid #fff; /* Rahmen um das Canvas */
+    margin: 20px 0;
 }
 
 /* Style and center the controls */
@@ -43,12 +39,11 @@ input {
 }
 
 button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 button:hover {
