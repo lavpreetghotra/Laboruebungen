@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drehender und rotierender Kubus</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="scene-container"></div>
+        <div id="control-panel">
+            <h2>Rotieren der Camara auf einer Kugel</h2>
+            <label>Radius von <span id="radius-value">5</span> <input id="radius-slider" type="range" min="0.05" max="10" step="0.05" value="5"></label>
+            <label>theta von <span id="theta-value">0</span> <input id="theta-slider" type="range" min="0" max="180" step="1" value="0"></label>
+            <label>phi von <span id="phi-value">0</span> <input id="phi-slider" type="range" min="0" max="360" step="1" value="0"></label>
+
+            <h2>Eigenschaften der Camara</h2>
+            <label>near von <input id="near-slider" type="range" min="0.01" max="3" step="0.01" value="0.3"></label>
+            <label>far von <input id="far-slider" type="range" min="10" max="1000" step="10" value="100"></label>
+            <label>fovy von <input id="fovy-slider" type="range" min="10" max="120" step="1" value="45"></label>
+            <label>aspect von <input id="aspect-slider" type="range" min="0.5" max="2" step="0.1" value="1"></label>
+        </div>
+    </div>
+
+    <div id="info-panel">
+        <p>Theta: <span id="theta-info">0</span> Phi: <span id="phi-info">0</span> Radius: <span id="radius-info">5</span> Near: <span id="near-info">0.3</span> Far: <span id="far-info">100</span> Fovy: <span id="fovy-info">45</span> Aspect: <span id="aspect-info">1</span></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
