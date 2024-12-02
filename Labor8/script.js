@@ -1,4 +1,4 @@
-let scene, camera, renderer, cube;
+let scene, camera, renderer, cube, cubeGroup;
 let textureLoader = new THREE.TextureLoader();
 let isAnimating = true;
 
@@ -6,6 +6,7 @@ function init() {
     // Create the scene
     scene = new THREE.Scene();
 
+    // Load the background texture
     const loader = new THREE.TextureLoader();
     loader.load('eine-wueste-cartoon-hintergrund-illustrationen-fuer-kinder-cartoon-stil-ai-generiert_755721-513.jpg.avif', function(texture) {
         scene.background = texture;
@@ -28,10 +29,14 @@ function init() {
     directionalLight.position.set(1, 1, 1).normalize();
     scene.add(directionalLight);
 
+    // Create the cube group for global rotation
+    cubeGroup = new THREE.Group();
+    scene.add(cubeGroup);
+
     // Load the texture for the cube
     const structureTexture = textureLoader.load('newTexture1.jpg');
 
-    // Create materials with textures for each face
+    // Create materials with textures for each face of the cube
     const materials = [
         new THREE.MeshBasicMaterial({ color: 0x000000, map: structureTexture }),
         new THREE.MeshBasicMaterial({ color: 0xff0000, map: structureTexture }),
@@ -41,12 +46,13 @@ function init() {
         new THREE.MeshBasicMaterial({ color: 0xff00ff, map: structureTexture })
     ];
 
-    // Create the cube and apply transformations
+    // Create the cube geometry and apply transformations
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     cube = new THREE.Mesh(geometry, materials);
     cube.scale.set(2, 2, 2); // Scale the cube
-    cube.position.set(1, 1, -2); // Move the cube
-    scene.add(cube);
+
+    // Add the cube to the group for global rotation
+    cubeGroup.add(cube);
 
     // Event listeners for controlling the animation
     document.addEventListener('keydown', function(event) {
@@ -126,8 +132,11 @@ function animate() {
     requestAnimationFrame(animate);
 
     if (isAnimating) {
+        // Local rotation of the cube around its x-axis
         cube.rotation.x += 0.05;
-        cube.rotation.y += 0.02;
+
+        // Global rotation of the cube group around an arbitrary axis (y-axis here)
+        cubeGroup.rotation.y += 0.02;
     }
 
     renderer.render(scene, camera);
